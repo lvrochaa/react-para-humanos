@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Post from './Post';
+import CreatePostBox from './CreatePostBox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FlaButton from 'material-ui/FlatButton';
+import {grey200, blueGrey100} from 'material-ui/styles/colors';
 
 class App extends Component {
     constructor() {
@@ -25,10 +26,9 @@ class App extends Component {
         localStorage.setItem(this.props.storageKey, actualState);
     }
 
-    newPost() {
+    newPost(value) {
         let post = this.state.post;
-        const newPostTitle = prompt("O que você está pensando?");
-        post.push(newPostTitle);
+        post.unshift(value);
         this.setState({post: post});
         this.saveInStorage();
     }
@@ -41,14 +41,16 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo"/>
                         <h1 className="App-title">Welcome to React</h1>
                     </header>
-                    <div style={{paddingTop: 30, backgroundColor: '#DDDDDD'}}>
+                    <div style={{padding: 30, backgroundColor: blueGrey100}}>
+                       <CreatePostBox newPost = {this.newPost.bind(this)} />
+                    </div>
+                    <div style={{padding: 30, backgroundColor: grey200}}>
                         {
                             this.state.post.map((post, index) => {
-                                return (<Post storageKey={index} text={post}/>);
+                                return (<Post key={index} storageKey={index} text={post}/>);
                             })
                         }
                     </div>
-                    <FlaButton style={{backgroundColor: '#4169E1'}} label={'new post'} onClick={this.newPost.bind(this)}/>
                 </div>
             </MuiThemeProvider>
         );

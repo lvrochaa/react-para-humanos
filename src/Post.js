@@ -69,7 +69,7 @@ class Post extends Component {
             iconColor = '#FFD700';
         }
         return (
-            <Card style={{ marginBottom:30, width:720, minheight: 200}}>
+            <Card style={{ marginBottom:30, width:'100%', minheight: 200}}>
                 <CardText>
                     <h4>{this.props.text}</h4>
                     <p>
@@ -80,8 +80,7 @@ class Post extends Component {
                             return (
                                 <h4 key={index}>
                                     {text}
-                                    <IconButton iconClassName="" label="x" onClick={this.deleteComment.bind(this, index)} iconStyle={{color: iconColor}} tooltip="excluir comentário" touch={true} tooltipPosition="bottom-right">
-                                </IconButton>
+                                    <FlaButton label={'x'} onClick={this.deleteComment.bind(this, index)} />
                                 </h4>);
                         })
                     }
