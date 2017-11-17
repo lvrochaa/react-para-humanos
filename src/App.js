@@ -39,12 +39,12 @@ class App extends Component {
                 <div className="App">
                     <header className="App-header">
                         <img src={logo} className="App-logo" alt="logo"/>
-                        <h1 className="App-title">Welcome to React</h1>
+                        <h1 className="App-title">React Para Humanos</h1>
                     </header>
                     <div style={{padding: 30, backgroundColor: blueGrey100}}>
                        <CreatePostBox newPost = {this.newPost.bind(this)} />
                     </div>
-                    <div style={{padding: 30, backgroundColor: grey200}}>
+                    <div style={{float:'left', padding: 30, backgroundColor: grey200}}>
                         {
                             this.state.post.map((post, index) => {
                                 return (<Post key={index} storageKey={index} text={post}/>);
