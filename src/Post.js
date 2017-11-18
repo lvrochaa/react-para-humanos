@@ -3,6 +3,8 @@ import {Card, CardText} from 'material-ui/Card';
 import FlaButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Post extends Component {
 
@@ -42,17 +44,20 @@ class Post extends Component {
         this.saveInStorage();
     }
 
-    newComment() {
-        let comments = this.state.comments;
-        const newCommentText = prompt("Digite");
-        comments.push(newCommentText);
-        this.setState({comments: comments});
-        this.saveInStorage();
+    newComment(input, e) {
+        if (e.key === 'Enter') {
+            let comments = this.state.comments;
+            const newCommentText = e.target.value;
+            e.target.value = null;
+            comments.push(newCommentText);
+            this.setState({comments: comments});
+            this.saveInStorage();
+        }
     }
 
     deleteComment(index) {
         let confirma = window.confirm("Excluir comentário?");
-        if(!confirma){
+        if (!confirma) {
             return false;
         }
         let comments = this.state.comments;
@@ -69,27 +74,34 @@ class Post extends Component {
             iconColor = '#FFD700';
         }
         return (
-            <Card style={{ marginBottom:30, width:720, minheight: 200}}>
+            <Card style={{margin: 30, width: '45%', float: 'left', minheight: 200}}>
                 <CardText>
                     <h4>{this.props.text}</h4>
                     <p>
                         {'likes: ' + this.state.n_likes} {this.state.ehFavorito}
                     </p>
+                    <FlaButton label={'like'} onClick={this.setLike.bind(this)}/>
+                    <IconButton onClick={this.setFavorito.bind(this)} iconStyle={{color: iconColor}}
+                                tooltip="bottom-right" touch={true} tooltipPosition="bottom-right">
+                        <ActionGrade/>
+                    </IconButton>
                     {
                         this.state.comments.map((text, index) => {
                             return (
-                                <h4 key={index}>
-                                    {text}
-                                    <IconButton iconClassName="" label="x" onClick={this.deleteComment.bind(this, index)} iconStyle={{color: iconColor}} tooltip="excluir comentário" touch={true} tooltipPosition="bottom-right">
-                                </IconButton>
-                                </h4>);
+                                <div style={{textAlign:'left',width:'100%', minHeight: 30}} key={index}>
+                                    <label>{text}</label>
+                                    <FlaButton style={{width: '5%', float: 'right'}} label={'x'} onClick={this.deleteComment.bind(this, index)}/>
+                                </div>);
                         })
                     }
-                    <FlaButton label={'like'} onClick={this.setLike.bind(this)}/>
-                    <IconButton onClick={this.setFavorito.bind(this)} iconStyle={{color: iconColor}} tooltip="bottom-right" touch={true} tooltipPosition="bottom-right">
-                        <ActionGrade />
-                    </IconButton>
-                    <FlaButton label={'comentar'} onClick={this.newComment.bind(this)}/>
+                    <TextField
+                        multiLine={true}
+                        rows={1}
+                        rowsMax={8}
+                        hintText="Comente algo sobre isso"
+                        style={{width: "100%"}}
+                        onKeyPress={this.newComment.bind(this, this._handleKeyPress)}
+                    />
                 </CardText>
             </Card>
         );
