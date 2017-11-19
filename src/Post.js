@@ -88,7 +88,7 @@ class Post extends Component {
                     {
                         this.state.comments.map((text, index) => {
                             return (
-                                <div style={{textAlign:'left',width:'100%', minHeight: 30}} key={index}>
+                                <div style={{textAlign:'left',width:'100%', marginBottom:10, minHeight: 30}} key={index}>
                                     <label>{text}</label>
                                     <FlaButton style={{width: '5%', float: 'right'}} label={'x'} onClick={this.deleteComment.bind(this, index)}/>
                                 </div>);

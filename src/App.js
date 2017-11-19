@@ -10,7 +10,12 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            post: []
+            post: [
+                'Este é um teste de post',
+                'Mais um teste de post',
+                'React é realmente uma ferramenta incrível',
+                'Então ta bom, o último post'
+            ]
         }
     }
 
@@ -28,7 +33,7 @@ class App extends Component {
 
     newPost(value) {
         let post = this.state.post;
-        post.unshift(value);
+        post.push(value);
         this.setState({post: post});
         this.saveInStorage();
     }
@@ -42,9 +47,9 @@ class App extends Component {
                         <h1 className="App-title">React Para Humanos :)</h1>
                     </header>
                     <div style={{padding: 30, backgroundColor: blueGrey100}}>
-                       <CreatePostBox newPost = {this.newPost.bind(this)} />
+                        <CreatePostBox newPost={this.newPost.bind(this)}/>
                     </div>
-                    <div style={{float:'left', padding: 30, backgroundColor: grey200}}>
+                    <div style={{float: 'left', padding: 30, backgroundColor: grey200}}>
                         {
                             this.state.post.map((post, index) => {
                                 return (<Post key={index} storageKey={index} text={post}/>);
