@@ -39,7 +39,7 @@ class App extends Component {
                 <div className="App">
                     <header className="App-header">
                         <img src={logo} className="App-logo" alt="logo"/>
-                        <h1 className="App-title">React Para Humanos</h1>
+                        <h1 className="App-title">React Para Humanos :)</h1>
                     </header>
                     <div style={{padding: 30, backgroundColor: blueGrey100}}>
                        <CreatePostBox newPost = {this.newPost.bind(this)} />
